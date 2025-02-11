@@ -1,0 +1,91 @@
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(2 0 23 / 63.7%);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  animation: fade-in 0.2s ease-out;
+
+  .alert {
+    text-align: center;
+    background-color: white;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 19.8%);
+    border-radius: 10px;
+    padding: 30px 40px;
+    gap: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+
+    i {
+      font-size: 60px;
+      margin-bottom: -10px;
+    }
+
+    .summary {
+      font-size: 1.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .detail {
+      font-size: 1rem;
+      font-weight: 400;
+
+      a {
+        color: #007bff;
+        text-decoration: none;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+  }
+}
+
+.bg-info {
+  background-color: #007bff;
+}
+
+.bg-warning {
+  background-color: #ff9800;
+}
+
+.bg-error {
+  background-color: #f44336;
+}
+
+.text-info {
+  color: #007bff;
+}
+
+.text-warning {
+  color: #ff9800;
+}
+
+.text-error {
+  color: #f44336;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

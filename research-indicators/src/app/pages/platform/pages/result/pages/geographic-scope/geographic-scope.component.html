@@ -1,0 +1,92 @@
+<div class="container">
+  <h3 class="title-text">{{ this.cache.currentMetadata().result_title }}</h3>
+  <br />
+
+  <div class="card-container">
+    <div class="card-title">GEOGRAPHIC SCOPE</div>
+    <div class="alert-container">
+      <span class="icon material-symbols-rounded">info</span>
+      <h3 class="card-description">Select the geographic location/s where this result is taking place.</h3>
+    </div>
+
+    <div class="item-content">
+      <div class="information"></div>
+    </div>
+
+    <div class="fields">
+      <app-radio-button
+        label="What is the main geographic focus of the Impact?*"
+        [signal]="body"
+        [optionLabel]="'label'"
+        serviceName="geoFocus"
+        (selectEvent)="onSelect()"
+        [optionValue]="{ body: 'geo_scope_id', option: 'value' }"></app-radio-button>
+
+      @if (getMultiselectLabel().region.label) {
+        <app-multiselect
+          [signal]="body"
+          [optionLabel]="'name'"
+          [optionValue]="'region_id'"
+          [signalOptionValue]="'regions'"
+          serviceName="regions"
+          label="{{ getMultiselectLabel().region.label }}"
+          description="{{ getMultiselectLabel().region.description }}"></app-multiselect>
+      }
+      @if (getMultiselectLabel().country.label) {
+        <app-multiselect
+          (selectEvent)="onSelect()"
+          [signal]="body"
+          [optionLabel]="'name'"
+          [optionValue]="'isoAlpha2'"
+          [signalOptionValue]="'countries'"
+          serviceName="countries"
+          label="{{ getMultiselectLabel().country.label }}"
+          description="{{ getMultiselectLabel().country.description }}">
+          @if (body().geo_scope_id === 5 || body().geo_scope_id === '5') {
+            <ng-template #rows let-country>
+              <div class="country-row">
+                <div class="left-column">
+                  <div class="country-info">
+                    <img [src]="environment.flagsUrl + country.isoAlpha2 + '.svg'" [alt]="country.name" class="country-flag" />
+                    <span class="country-name">{{ country.name }}</span>
+                  </div>
+                  <div class="sub-national-section">
+                    <div class="sub-national-header"></div>
+                    <div class="chips-container">
+                      <span>Sub-national levels</span>
+                      <i class="pi pi-arrow-right"></i>
+                      @for (region of country.result_countries_sub_nationals_signal().regions; track region.sub_national_id) {
+                        <div class="p-chip">
+                          {{ region.name }}
+                          <i class="pi pi-times remove-chip" (click)="subnationalmultiselect.removeOption(region)"></i>
+                        </div>
+                      }
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Right column: Multiselect -->
+                <div class="right-column" style="width: 300px">
+                  <app-multiselect-opensearch
+                    #subnationalmultiselect
+                    [signal]="country.result_countries_sub_nationals_signal"
+                    [optionLabel]="'name'"
+                    [optionValue]="'sub_national_id'"
+                    [signalOptionValue]="'regions'"
+                    serviceName="openSearchSubNationals"
+                    [hideSelected]="true"
+                    [openSearchFilters]="{ country: country.isoAlpha2 }"></app-multiselect-opensearch>
+                </div>
+              </div>
+            </ng-template>
+          }
+        </app-multiselect>
+      }
+    </div>
+  </div>
+  <div class="button-container">
+    <p-button (click)="saveData('back')" label="Back" icon="pi pi-arrow-left" iconPos="left" [loading]="this.loading()" />
+    <p-button (click)="saveData('next')" label="Next" icon="pi pi-arrow-right" iconPos="left" [loading]="this.loading()" />
+    <p-button (click)="saveData()" label="Save" severity="success" icon="pi pi-save" iconPos="left" [loading]="this.loading()" />
+  </div>
+</div>

@@ -1,0 +1,167 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  padding: 0 50px;
+  box-shadow: 0 0 15px 0 #00000030;
+
+  .logo {
+    img {
+      height: 35px;
+      cursor: pointer;
+      margin-right: 50px;
+    }
+
+    transition: all ease-in-out 0.3s;
+  }
+
+  .options {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-start;
+
+    .option {
+      transition: all ease-in-out 0.3s;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      padding: 25px 15px;
+      font-weight: 500;
+      cursor: pointer;
+      font-size: 1em;
+
+      &.disabled {
+        // pointer-events: none;
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      &:hover {
+        background-color: #1b1b1b56;
+      }
+
+      &.active {
+        position: relative;
+
+        &::after {
+          content: '';
+          display: block;
+          width: 100%;
+          height: 7px;
+          background-color: #00b6ff;
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          border-radius: 3px;
+        }
+      }
+
+      .option-icon {
+        margin: -10px 0;
+      }
+    }
+
+    .notification-icon {
+      font-size: 1.3rem !important;
+    }
+
+    .search-box {
+      background-color: rgb(255 255 255 / 10%);
+      border-radius: 12px;
+      width: 300px;
+      display: flex;
+      align-items: center;
+
+      i {
+        font-size: 18px;
+        color: white;
+        margin: 6px;
+      }
+
+      input {
+        border: none;
+        outline: none;
+        color: white;
+        background: transparent;
+        flex-grow: 1;
+        padding: 7px 0;
+      }
+
+      input::placeholder {
+        color: var(--ac-grey-500);
+      }
+    }
+  }
+
+  .icons-container {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 35px;
+  }
+
+  i {
+    cursor: pointer;
+  }
+
+  search-dropdown {
+    dropdown-content {
+      width: 500px !important;
+    }
+  }
+
+  .profile {
+    padding: 20px;
+  }
+
+  .account-container {
+    width: 250px;
+    color: #3e3e3e;
+    margin: 20px 0 40px;
+
+    .account-header {
+      font-size: 1rem;
+      margin-bottom: 30px;
+    }
+
+    .account-content {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 15px;
+
+      .account-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+      }
+
+      .account-details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        .account-name {
+          font-size: 1rem;
+          margin-bottom: 10px;
+          color: #909090;
+        }
+
+        .account-email {
+          font-size: 0.85rem;
+          color: #000;
+        }
+
+        .account-role {
+          font-size: 12px;
+          color: white;
+          background-color: rgb(37 37 37);
+          border-radius: 4px;
+          padding: 5px;
+          width: max-content;
+          margin-top: 10px;
+        }
+      }
+    }
+  }
+}
